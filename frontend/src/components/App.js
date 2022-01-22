@@ -35,7 +35,7 @@ function App() {
       };
       fetch("/create", requestOptions)
       .then(response => response.text())
-      .then(text => setApiResponse("localhost:8000/"+text))
+      .then(text => setApiResponse("www.longnt.tk/"+text))
       .then(setCopyButton(true))
       .catch((error) => {
         console.log(error);
