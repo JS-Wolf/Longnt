@@ -11,6 +11,7 @@ function App() {
   const [copyButton, setCopyButton] = useState(false);
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const textRef = useRef(null);
   const return_url = "http://"+apiResponse;
 
   const validate = (value) => {
@@ -56,6 +57,11 @@ function App() {
     };
   }, [link]);
 
+  function copyToClipboard(e) {
+    textRef.current.select();
+    document.execCommand('copy');
+    e.target.focus();
+  };
   
   return (
     <div className="App" align="center">
@@ -75,7 +81,8 @@ function App() {
               error={error}
               style={{ width: "90%" }}
               value={link}
-              onChange={e => validate(e.target.value)} 
+              onChange={e => validate(e.target.value)}
+              ref={textRef} 
             />
         </Grid>
         <Grid item xs={12}>
@@ -96,7 +103,7 @@ function App() {
           </Link>
         </Grid>
         <Grid item xs={3} style={{marginTop: 45}}>
-          {copyButton && <Button id="copy" size="large" color="primary" variant="outlined" onClick={() => {navigator.clipboard.writeText(apiResponse)}} style={{ width: "20%" }}>Copy</Button>}
+          {copyButton && <Button id="copy" size="large" color="primary" variant="outlined" onClick={copyToClipboard} style={{ width: "20%" }}>Copy</Button>}
         </Grid>
       </Grid>
     </div>
