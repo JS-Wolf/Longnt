@@ -58,9 +58,8 @@ function App() {
   }, [link]);
 
   function copyToClipboard(e) {
-    textRef.current.select();
-    document.execCommand('copy');
-    e.target.focus();
+      e.preventDefault();
+      e.clipboardData.setData('text/plain', apiResponse);
   };
   
   return (
@@ -83,8 +82,6 @@ function App() {
               value={link}
               onChange={e => validate(e.target.value)}
               ref={textRef} 
-              multiline
-              maxRows={1}
             />
         </Grid>
         <Grid item xs={12}>
