@@ -57,9 +57,13 @@ function App() {
     };
   }, [link]);
 
-  function copyToClipboard(e) {
-      e.preventDefault();
-      e.clipboardData.setData('text/plain', apiResponse);
+  function copyToClipboard(text){
+    var dummy = document.createElement("input");
+    document.body.appendChild(dummy);
+    dummy.setAttribute('value', text);
+    dummy.select();
+    document.execCommand("copy");
+    document.body.removeChild(dummy);
   };
   
   return (
@@ -102,7 +106,7 @@ function App() {
           </Link>
         </Grid>
         <Grid item xs={3} style={{marginTop: 45}}>
-          {copyButton && <Button id="copy" size="large" color="primary" variant="outlined" onClick={copyToClipboard} style={{ width: "20%" }}>Copy</Button>}
+          {copyButton && <Button id="copy" size="large" color="primary" variant="outlined" onClick={copyToClipboard(apiResponse)} style={{ width: "20%" }}>Copy</Button>}
         </Grid>
       </Grid>
     </div>
